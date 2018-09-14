@@ -42,6 +42,10 @@ export function initializeApp(tanamConfig: TanamConfig = {}) {
       handlers.handleAdminPage(res, adminClientDir, tanamConfig.firebaseConfig);
     }
   );
+  app.use(
+    `/adminnew/public`,
+    express.static(path.join(__dirname, 'admin/public'))
+  );
   app.get('/adminnew', (req: express.Request, res: express.Response) =>
     handlers.handleAdminPage(
       res,
