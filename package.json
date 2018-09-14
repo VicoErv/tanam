@@ -50,6 +50,7 @@
   "dependencies": {
     "crypto-js": "^3.1.9-1",
     "dustjs-helpers": "^1.7.4",
+    "dustjs-linkedin": "^2.7.5",
     "express": "^4.16.3",
     "firebase-admin": "^6.0.0",
     "firebase-functions": "^2.0.5"
