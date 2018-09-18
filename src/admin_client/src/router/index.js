@@ -13,15 +13,15 @@ const routerOptions = [
   },
   {
     path: '/authenticate',
-    name: 'home',
+    name: 'auth',
     component: 'Authenticate'
   },
-  {
-    path: '/login',
-    name: 'login',
-    component: 'Login',
-    meta: { layout: 'SimpleLayout' }
-  },
+  // {
+  //   path: '/login',
+  //   name: 'login',
+  //   component: 'Login',
+  //   meta: { layout: 'SimpleLayout' }
+  // },
   {
     path: '/templates/images',
     name: 'templateImages',
@@ -110,17 +110,9 @@ router.beforeEach((to, from, next) => {
 
   const isAuthenticated = firebase.auth().currentUser;
   if (isAuthenticated) {
-    if (to.path == '/login') {
-      next('/');
-    } else {
-      next();
-    }
+    next();
   } else {
-    if (to.path !== '/login') {
-      next('login');
-    } else {
-      next();
-    }
+    next(false);
   }
 });
 
