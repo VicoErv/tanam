@@ -10,6 +10,7 @@ module.exports = {
             window.__FIREBASE_CONFIG__ = {fbConfig|js|s};
           </script>
         `;
+        args[0].template = './src/assets/index.html';
         return args;
       });
     }
