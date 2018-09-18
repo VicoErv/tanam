@@ -11,6 +11,9 @@ export default {
       return this.$store.getters[CURRENT_USER];
     }
   },
+  mounted() {
+    document.getElementById('landingPage').remove();
+  },
   watch: {
     currentUser(user) {
       if (user.isOwner) {
