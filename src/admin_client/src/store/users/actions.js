@@ -30,10 +30,9 @@ const autoLogin = async ({ commit }, payload) => {
   commit(SET_USER, commitUser(uid, email, displayName, isOwner));
 };
 
-const logout = async ({ commit }) => {
+const logout = async () => {
   await firebase.auth().signOut();
-  await commit(SET_USER, null);
-  router.push('/login');
+  window.location.replace('/admin/');
 };
 
 export default {
