@@ -33,7 +33,7 @@ export function initializeApp(tanamConfig: TanamConfig = {}) {
   app.all(
     `/${appConfig.adminUrl}`,
     (req: express.Request, res: express.Response) => {
-      res.redirect('/admin/');
+      res.redirect(`/${appConfig.adminUrl}/`);
     }
   );
   app.use(
@@ -42,17 +42,7 @@ export function initializeApp(tanamConfig: TanamConfig = {}) {
       handlers.handleAdminPage(res, adminClientDir, tanamConfig.firebaseConfig);
     }
   );
-  app.use(
-    `/adminnew/public`,
-    express.static(path.join(__dirname, 'admin/public'))
-  );
-  app.get('/adminnew', (req: express.Request, res: express.Response) =>
-    handlers.handleAdminPage(
-      res,
-      path.join(__dirname, 'admin'),
-      tanamConfig.firebaseConfig
-    )
-  );
+
   app.get('/manifest.json', handlers.handlePublicDirectoryFileReq);
   app.get('/robots.txt', handlers.handlePublicDirectoryFileReq);
   app.get('/sitemap.xml', handlers.handleSitemapReq);
