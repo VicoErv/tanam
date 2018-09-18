@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Tanam Admin</title>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
+
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <link rel="prefetch" as="style" onload="this.rel = 'stylesheet'" href="https://fonts.googleapis.com/css?family=Roboto:100:300,400,500,700,900|Material+Icons">
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but admin_client doesn't work properly without JavaScript enabled. Please enable it to
+      continue.</strong>
+  </noscript>
+
+  <div id="landingPage" class="lp-wrapper">
+    <div class="head-wrapper">
+      <div class="logo-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" height="100px" width="100px" version="1.1" viewBox="0 0 152.70232 152.7023">
+          <g transform="translate(163.29 -36.196)">
+            <path d="m-86.934 36.196a76.351 76.351 0 0 0 -76.351 76.351 76.351 76.351 0 0 0 76.351 76.351 76.351 76.351 0 0 0 76.351 -76.351 76.351 76.351 0 0 0 -76.351 -76.351zm36.709 32.104c1.8303 0.0035 3.5267 0.10256 4.9242 0.31212 3.3113 0.49656 3.4664 0.62997 3.4664 2.9791 0 4.1186-2.8554 13.92-5.779 19.837-3.319 6.7171-8.8664 12.648-14.499 15.503-5.8655 2.9723-7.7557 3.4535-15.708 3.9987l-7.1107 0.48783-0.92604 4.1248c-1.4654 6.5266-1.9658 14.29-1.3767 21.363l0.54415 6.5319 3.1145-0.48886c7.4704-1.173 7.8476-1.0477 12.79 4.2468 3.7637 4.0319 5.1308 4.998 7.6827 5.4291 1.8031 0.30464 3.822 1.2882 4.8168 2.3472l1.7126 1.8231h-30.507c-16.779 0-30.505-0.25336-30.502-0.56275s1.1748-1.3591 2.6045-2.3327 4.0908-3.5154 5.9133-5.6488c4.4144-5.167 10.064-8.2546 14.243-7.784l3.1104 0.35037 0.0832-8.4196c0.04567-4.6308 0.29854-9.2779 0.56172-10.326 0.47205-1.8808 0.44049-1.8961-2.3332-1.1265-1.5464 0.42906-5.3433 0.60062-8.4372 0.38085-16.353-1.1616-28.268-12.644-29.766-28.685l-0.43201-4.6256 2.9109-0.4625c3.6483-0.57981 14.51 0.54756 19.216 1.9947 5.2866 1.6257 9.7354 4.4988 13.569 8.7623 3.3154 3.6875 6.471 10.305 6.5324 13.699 0.02912 1.6101 0.05944 1.6034 1.0294-0.21601 0.5498-1.0313 1.1714-5.0815 1.3813-9.0005 0.80577-15.042 9.1805-27.603 21.56-32.34 3.4263-1.311 10.12-2.1617 15.61-2.1513z"
+              fill="#fff" />
+          </g>
+        </svg>
+      </div>
+      <h2>Welcome to Tanam<strong>CMS</strong></h2>
+    </div>
+    <div id="firebaseui-auth-container"></div>
+  </div>
+  <div id="app"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+  <script>
+    const config = {
+      apiKey: '{fbConfig.apiKey}',
+      authDomain: '{fbConfig.authDomain}',
+      databaseURL: '{fbConfig.databaseURL}',
+      projectId: '{fbConfig.projectId}',
+      storageBucket: '{fbConfig.storageBucket}',
+      messagingSenderId: '{fbConfig.messagingSenderId}'
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+  <script>
+    const uiConfig = {
+      signInFlow: 'popup',
+      signInOptions: [
+        {
+          provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          customParameters: { prompt: 'select_account' }
+        }
+      ],
+      callbacks: {
+        signInSuccessWithAuthResult: function (authResult) {
+          if (authResult.user) { window.history.replaceState(null, null, '/admin/') }
+          return false;
+        },
+      }
+    };
+    const ui = new firebaseui.auth.AuthUI(firebase.auth());
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => { if (!user) { ui.start('#firebaseui-auth-container', uiConfig) } unsubscribe() })
+  </script>
+  <%= htmlWebpackPlugin.options.fbConfig %>
+</body>
+
+</html>
